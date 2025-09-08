@@ -1,4 +1,6 @@
-// pages/SavedCountries.jsx
-export default function SavedCountries() {
+
+function SavedCountries() {
   return <h1>Saved Countries</h1>;
 }
+
+export default SavedCountries;

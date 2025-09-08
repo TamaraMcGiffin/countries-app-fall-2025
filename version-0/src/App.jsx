@@ -2,12 +2,14 @@ import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import SavedCountries from "./pages/SavedCountries";
+import localData from "../localData";
 // import CountryDetails from "./pages/CountryDetails";
 
 function App() {
   return (
-    <>
-      <header>
+    <div>
+
+      <div className="header">
         <nav>
           <ul>
             <li>
@@ -20,14 +22,17 @@ function App() {
             </li>
           </ul>
         </nav>
-      </header>
+      </div>
 
       <Routes>
-        <Route path="/Home" element={<Home />} />
+        <Route
+          path="/Home"
+          element={<Home countriesData={localData} />}
+        />
         <Route path="/SavedCountries" element={<SavedCountries />} />
         {/* <Route path="/CountryDetails" element={<CountryDetails />} /> */}
       </Routes>
-    </>
+    </div>
   );
 }
 
