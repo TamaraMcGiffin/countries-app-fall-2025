@@ -8,12 +8,11 @@ import localData from "../localData";
 function App() {
   return (
     <div>
-
       <div className="header">
         <nav>
           <ul>
             <li>
-              <Link to="/Home" className="world-link">
+              <Link to="/" className="world-link">
                 Where in the world?
               </Link>
             </li>
@@ -25,10 +24,7 @@ function App() {
       </div>
 
       <Routes>
-        <Route
-          path="/Home"
-          element={<Home countriesData={localData} />}
-        />
+        <Route path="/" element={<Home countriesData={localData} />} />
         <Route path="/SavedCountries" element={<SavedCountries />} />
         {/* <Route path="/CountryDetails" element={<CountryDetails />} /> */}
       </Routes>
