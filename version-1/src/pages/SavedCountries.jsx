@@ -1,7 +1,8 @@
 import "../App.css";
 import { useState } from "react";
+import "../App.jsx";
 
-function SavedCountries() {
+function SavedCountries({ countryData}) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
