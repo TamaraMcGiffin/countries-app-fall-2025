@@ -16,7 +16,7 @@ function Home({ countriesData }) {
       {/* Here I am using the map method to iterate over the array of countriesData and using the prop name "country" */}
       {countriesData.map((country) => (
 
-        // Here I am assigning the data to the CountryCard componenet and using dot notation to identify the key
+        // Here I am assigning the data to the CountryCard component and using dot notation to identify the key
         // and it's items for rendering back in the card
         // country={country} is being useed here to assign the country prop to the CountryCard component
         <CountryCard key={country.name.common} country={country} />

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import CountryDetails from "./pages/CountryDetails";
 
 function App() {
-  
+
   // Here I am assigning the useState hook to the variables countryData, and setCountryData which is a setter function
   const [countryData, setCountryData] = useState([]);
 
@@ -16,7 +16,7 @@ function App() {
 
   // Note to self: Comment out getCountriesData function to do the "try" fetch in later milestones
 
-  // This function is being used (arrow function?) for the purpose of fetching data from the assigned url
+  // This function is being used for the purpose of fetching data from the assigned url
   const getCountriesData = () => {
     fetch(
       `https://restcountries.com/v3.1/all?fields=name,flags,population,capital,region,cca3,borders`
@@ -57,6 +57,8 @@ function App() {
       </div>
 
       <Routes>
+        {/* Here I am assigning the Home component to the route path as an element */}
+        {/* The home component also includes the countriesData function and passing through countryData prop */}
         <Route path="/" element={<Home countriesData={countryData} />} />
         <Route path="/SavedCountries" element={<SavedCountries />} />
         <Route
