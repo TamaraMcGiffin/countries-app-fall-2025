@@ -1,5 +1,6 @@
 import CountryCard from "../components/CountryCard";
 
+
 // This line is the function name of Home for the Home.jsx page and it is passing through the countriesData prop
 // The countriesData prop stores the array of countries and it's details
 function Home({ countriesData }) {
