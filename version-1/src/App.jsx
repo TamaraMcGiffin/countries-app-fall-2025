@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import CountryDetails from "./pages/CountryDetails";
 
 function App() {
-
   // Here I am assigning the useState hook to the variables countryData, and setCountryData which is a setter function
   const [countryData, setCountryData] = useState([]);
 
@@ -21,7 +20,7 @@ function App() {
     fetch(
       `https://restcountries.com/v3.1/all?fields=name,flags,population,capital,region,cca3,borders`
     )
-    // This line fetches the data and converts it to json formatting
+      // This line fetches the data and converts it to json formatting
       .then((response) => response.json())
 
       // This line receives the data and then sets it in the following line
@@ -60,10 +59,14 @@ function App() {
         {/* Here I am assigning the Home component to the route path as an element */}
         {/* The home component also includes the countriesData function and passing through countryData prop */}
         <Route path="/" element={<Home countriesData={countryData} />} />
-        <Route path="/SavedCountries" element={<SavedCountries />} />
+
         <Route
-          path="/CountryDetails/:countryName"
-          element={<CountryDetails />}
+          path="/SavedCountries"
+          element={<SavedCountries countriesData={countryData} />}
+        />
+        <Route
+          path="/country-detail/:countryName"
+          element={<CountryDetails countriesData={countryData} />}
         />
       </Routes>
     </div>

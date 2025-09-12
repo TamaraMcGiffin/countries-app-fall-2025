@@ -6,7 +6,7 @@ import CountryCard from "../components/CountryCard";
 function Home({ countriesData }) {
 
   // Here I am console logging countriesData to check that the information is coming through
-  console.log(countriesData);
+  // console.log(countriesData);
 
   // Return means to render or display the items defined within the parentheses
   return (

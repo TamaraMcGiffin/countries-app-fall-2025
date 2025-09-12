@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 function CountryCard({ country }) {
   const { flags, name, population, region, capital } = country;
   return (
-    <Link to={`/country/${country.name.common}`}>
+    // Working don't mess with it
+    <Link to={`/country-detail/${country.name.common}`}>
       <div className="country-card">
         <img src={flags.png} alt="Flag" />
         <div className="country-details">
