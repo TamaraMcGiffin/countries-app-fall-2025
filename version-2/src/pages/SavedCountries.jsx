@@ -1,6 +1,7 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import "../App.jsx";
+// import CountryCard from "../components/CountryCard.jsx";
 
 // took countriesData prop out to make sure not interfering
 function SavedCountries({ countriesData }) {
@@ -93,7 +94,7 @@ function SavedCountries({ countriesData }) {
             />
             <br />
             <br />
-            <button type="submit">Submit</button>
+            <button className="form-button" type="submit">Submit</button>
           </form>
         </div>
       )}

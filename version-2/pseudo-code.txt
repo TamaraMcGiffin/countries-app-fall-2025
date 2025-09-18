@@ -52,35 +52,38 @@ WHERE: On the SavedCountries page above the form
 HOW: setFormData
 Step 1: We need to make a useEffect that retrieves the Form data on pageload and saves it in state
 Step 2: We render the state variable in the (Home) JSX as a heading that says "Welcome[User]!"
-Step 3: _______
+
 Add more steps as needed!
 ------------------------
 :bar_chart: SAVED COUNTRIES DATA
 ------------------------
 WHAT data should we store & retrieve?
-KEY: "_______"
-VALUE: _______
-VALUE DATA TYPE: _______
-EXAMPLE VALUE: _______
+KEY: "savedCountries"
+VALUE: An array of saved country names - countryName
+VALUE DATA TYPE: An array of strings
+EXAMPLE VALUE: [Afghanistan, India, China,]
 ------------------------
 :large_orange_diamond: STORING SAVED COUNTRIES DATA
 ------------------------
-WHEN: _______
-WHERE: _______
+WHEN: When user clicks 'save' button
+WHERE: On the CountryDetail page by click on 'save' button
 HOW:
-Step 1: _______
-Step 2: _______
-Step 3: _______
-Add more steps as needed!
+Step 1: We need to attach an onClick handler to the 'save' button on the CountryDetail pages
+Step 2: When the user clicks on the 'save' button, call the handleClick function
+Step 3: The handleClick function needs to save the country's name in localStorage
+Step 3: The handleClick function will first get the array of saved countries from localStorage. 
+If the country is already saved, then there is no need to save the country. If the country is not saved yet, then add the country's name to the array of savedCountries and store that value in localStorage.
 ------------------------
 :large_orange_diamond: RETRIEVING SAVED COUNTRIES DATA
 ------------------------
-WHEN: _______
-WHERE: _______
+WHEN: On page load when we load the Saved Countries page
+WHERE: On saved countries page in Saved Countries section
 HOW:
-Step 1: _______
-Step 2: _______
-Step 3: _______
+Step 1: Make a useEffect that runs on page load. It will...
+Step 2: Get the array of savedCountries from localStorage
+Step 3: Store it in a state variable
+Step 4: Map over the array of objects and render a countryCard for each item in the array. (Render the state variable in JSX as CountryCards.)
+
 Add more steps as needed!
 ------------------------
 :bar_chart: COUNTRY COUNTS DATA
