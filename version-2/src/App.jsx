@@ -9,12 +9,9 @@ import CountryDetails from "./pages/CountryDetails";
 function App() {
   // Here I am assigning the useState hook to the variables countryData, and setCountryData which is a setter function
   const [countryData, setCountryData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  // debugging by console logging to make sure data is passing through
-  console.log(countryData);
 
-  // Note to self: Comment out getCountriesData function to do the "try" fetch in later milestones
+  // Note to self: Comment out getCountriesData function to refactor or do the "try" fetch in later milestones
 
   // This function is being used for the purpose of fetching data from the assigned url
   const getCountriesData = () => {
@@ -39,14 +36,7 @@ function App() {
     getCountriesData();
   }, []);
 
-  // Experimenting
-  if (isLoading) {
-    return (
-      <div className="app">
-        <div className="loading-state">Loading...</div>
-      </div>
-    );
-  }
+
 
   return (
     <div>

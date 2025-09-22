@@ -1,25 +1,29 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import "../App.jsx";
-// import CountryCard from "../components/CountryCard.jsx";
 
-// took countriesData prop out to make sure not interfering
 function SavedCountries({ countriesData }) {
-  //declaring a variable for the empty form state with key names including values of empty strings
+  // Declaring a variable for the empty form state with key names including values of empty strings
   const emptyFormState = { fullName: "", email: "", country: "", bio: "" };
 
-  // this holds the current state of the form inputs
+  // This holds the current state of the form inputs
   const [formData, setFormData] = useState(emptyFormState);
 
-  // this holds the user's profile information, if a user previously submitted the form
+  // This holds the user's profile information, if a user previously submitted the form
   const [userInfo, setUserInfo] = useState(null);
+
+  // Changed state from 'null' to empty array, per research - goal is to return an array and not an object
+  const [savedCountries, setSavedCountries] = useState([]);
 
   // Update the state when input values change
   const handleInputChange = (e) => {
+    // Destructuring method used to extract name & value properties
     const { name, value } = e.target;
+    // Setting formData's useState using a key/value pair
     setFormData({ ...formData, [name]: value });
   };
 
+  // handleSubmit function handles the event (e) object when form is submitted, preventDefault keeps it from reloading
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData, "form was submitted");
@@ -29,8 +33,9 @@ function SavedCountries({ countriesData }) {
     // using setItem method to save to localStorage
     localStorage.setItem("profile", stringified);
 
+    // setting user info to formData
     setUserInfo(formData);
-    // reset the form to empty state
+    // resets the form to empty state
     setFormData(emptyFormState);
   };
 
@@ -42,26 +47,41 @@ function SavedCountries({ countriesData }) {
     }
   }, []);
 
+  // Here I am using another useEffect function to access the key "saved-countries" which has been saved to localStorage
+  useEffect(() => {
+    // Declaring a variable of saved to represent the JSON parse/getItem method for cleaner code
+    // JSON parse is used to convert JSON string into an object or array
+    let saved = JSON.parse(localStorage.getItem("saved-countries"));
+
+    // Setting saved countries (list of saved countries) of the items retrieved from localStorage using the getItem method saved in the variable above
+    setSavedCountries(saved);
+    console.log("saved", saved);
+  }, []);
+
   return (
     <>
-      {/* Conditionally render the welcome message only if there userInfo and if true to render the message without the form, this sign : means to render either one element or the other element based on which conditions are met */}
+      {/* Ternary operator - if userInfo is true then to return the welcome message inlucding/accessing user's full name using dot notation */}
       {userInfo ? (
         <h2>Welcome {userInfo.fullName}!</h2>
       ) : (
+        // If false :  render the form
         <div className="form-container">
           <br />
           <h2> My Saved Countries</h2>
+          <div>{/* </CountryCard> */}</div>
           <br />
 
           <h2> My Profile </h2>
-
+          {/* Form has onSubmit handler that calls the handleSubmit function, when user clicks submit form button */}
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Full Name"
               name="fullName"
               id="fullName"
+              // Extracts value of formData input by user in full name
               value={formData.fullName}
+              // onChange calls the handleInputChange function, which changes or updates the new input or value submitted by user in the form
               onChange={handleInputChange}
             />
 
@@ -94,7 +114,9 @@ function SavedCountries({ countriesData }) {
             />
             <br />
             <br />
-            <button className="form-button" type="submit">Submit</button>
+            <button className="form-button" type="submit">
+              Submit
+            </button>
           </form>
         </div>
       )}

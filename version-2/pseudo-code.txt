@@ -35,7 +35,7 @@ EXAMPLE VALUE: {
 ------------------------
 WHEN: When user clicks submit button 
 
-WHERE: SavedCountries page
+WHERE: savedCountries page
 
 HOW: 
 Step 1: We create a handleSubmit function that gets the values from the from and saves it in localStorage
@@ -45,9 +45,9 @@ Add more steps as needed!
 ------------------------
 :large_orange_diamond: RETRIEVING FORM DATA
 ------------------------
-WHEN: When user loads the SavedCountries page
+WHEN: When user loads the savedCountries page
 
-WHERE: On the SavedCountries page above the form
+WHERE: On the savedCountries page above the form
 
 HOW: setFormData
 Step 1: We need to make a useEffect that retrieves the Form data on pageload and saves it in state

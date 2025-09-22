@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function CountryCard({ country }) {
-    console.log("country prop working?", country);
+    // console.log("country prop working?", country);
   const { flags, name, population, region, capital } = country;
     // const country = { flags, name, population, region, capital };
   return (
