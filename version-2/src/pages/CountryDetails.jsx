@@ -7,7 +7,8 @@ import "../App.jsx";
 function CountryDetails({ countriesData }) {
   // const countryName = useParams().countryName;
   //
-  const { countryName } = useParams();
+  // const { countryName } = useParams();
+  const countryName = useParams().countryName;
   console.log(countryName, "CountryDetails console check");
 
   const country = countriesData.find(
@@ -29,9 +30,15 @@ function CountryDetails({ countriesData }) {
   function handleClick() {
     if (country) {
       // Get the existing list of saved countries from localStorage.
-      const listSavedCountries = JSON.parse(
-        localStorage.getItem("saved-countries")
-      );
+      // const listSavedCountries = JSON.parse(
+      //   localStorage.getItem("saved-countries")
+      // );
+      // Had to re-formulate for initial state if nothing stored to localStorage yet or no saved country yet for new users
+      const savedCountriesDestringified =
+        localStorage.getItem("saved-countries");
+      const listSavedCountries = savedCountriesDestringified
+        ? JSON.parse(savedCountriesDestringified)
+        : [];
       // Assigning a variable savedToList to equal value of the list of saved countries(listSavedCountries) if savedCountry is true
       const savedToList = listSavedCountries.find(
         (savedCountry) => savedCountry.name.common === country.name.common

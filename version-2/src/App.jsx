@@ -10,7 +10,6 @@ function App() {
   // Here I am assigning the useState hook to the variables countryData, and setCountryData which is a setter function
   const [countryData, setCountryData] = useState([]);
 
-
   // Note to self: Comment out getCountriesData function to refactor or do the "try" fetch in later milestones
 
   // This function is being used for the purpose of fetching data from the assigned url
@@ -29,14 +28,13 @@ function App() {
       // This line handles any errors during fetch call
       .catch((error) => console.log("Error: " + error.message));
   };
+  // console.log(countryData, "flag debugging");
 
   // This is a useEffect hook being used to call on the getCountriesData function to fetch the data & using empty array (?)
   // Googled why empty array, called a dependency array and prevents an infinite loop from happening when rendering component
   useEffect(() => {
     getCountriesData();
   }, []);
-
-
 
   return (
     <div>
