@@ -19,20 +19,10 @@ function CountryDetails({ countriesData }) {
     return <div>Country not found.</div>;
   }
 
-  // function handleClick() {
-  //   if (country) {
-  //     console.log(country, "country name");
-  //     //added hyphen in "saved countries"
-  //     localStorage.setItem("saved-countries", JSON.stringify(country));
-  //   }
-  // }
-
   function handleClick() {
     if (country) {
       // Get the existing list of saved countries from localStorage.
-      // const listSavedCountries = JSON.parse(
-      //   localStorage.getItem("saved-countries")
-      // );
+
       // Had to re-formulate for initial state if nothing stored to localStorage yet or no saved country yet for new users
       const savedCountriesDestringified =
         localStorage.getItem("saved-countries");

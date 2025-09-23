@@ -37,7 +37,8 @@ a {
   border: solid #858585 0.5px;
   border-radius: 5px;
 }
-.countries-container {
+.countries-container,
+.saved-countries-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 50px;
@@ -128,7 +129,8 @@ textarea {
 
 @media (max-width: 600px) {
   .countries-container,
-  .details-container {
+  .details-container,
+  .saved-countries-list {
     grid-template-columns: 1fr;
   }
 }

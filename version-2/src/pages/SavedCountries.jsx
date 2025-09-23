@@ -1,9 +1,10 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import "../App.jsx";
+import CountryCard from "../components/CountryCard.jsx";
 
 function SavedCountries({ countriesData }) {
-  // Declaring a variable for the empty form state with key names including values of empty strings
+  // Declaring a variable for the empty form state with the key names & value pairs
   const emptyFormState = { fullName: "", email: "", country: "", bio: "" };
 
   // This holds the current state of the form inputs
@@ -28,9 +29,9 @@ function SavedCountries({ countriesData }) {
     e.preventDefault();
     console.log(formData, "form was submitted");
 
-    //declaring variable called 'stringify' use to house the stringify method targeting the formData
+    // Declaring a variable called 'stringified' to store/house the formData using the stringify method
     let stringified = JSON.stringify(formData);
-    // using setItem method to save to localStorage
+    // Here I am using the setItem method to save to localStorage
     localStorage.setItem("profile", stringified);
 
     // setting user info to formData
@@ -39,19 +40,17 @@ function SavedCountries({ countriesData }) {
     setFormData(emptyFormState);
   };
 
-  // Here I am using a conditional statement in useEffect for profile in getItem to convert the string of key/value pairs into a JSON formatted object using the destringify method
+  // Here I am using a conditional statement in a useEffect function for the user's profile in getItem to convert the strings of key/value pairs into a JSON formatted object using the JSON parse() method
   useEffect(() => {
     if (localStorage.getItem("profile")) {
       let profileDeStringified = JSON.parse(localStorage.getItem("profile"));
       setUserInfo(profileDeStringified);
     }
-  }, []);
-
-  // Here I am using another useEffect function to access the key "saved-countries" which has been saved to localStorage
-  useEffect(() => {
     // Declaring a variable of saved to represent the JSON parse/getItem method for cleaner code
     // JSON parse is used to convert JSON string into an object or array
-    let saved = JSON.parse(localStorage.getItem("saved-countries"));
+
+    //TAM Note: added || and empty array
+    let saved = JSON.parse(localStorage.getItem("saved-countries") || "[]");
 
     // Setting saved countries (list of saved countries) of the items retrieved from localStorage using the getItem method saved in the variable above
     setSavedCountries(saved);
@@ -67,8 +66,7 @@ function SavedCountries({ countriesData }) {
         // If false :  render the form
         <div className="form-container">
           <br />
-          <h2> My Saved Countries</h2>
-          <div>{/* </CountryCard> */}</div>
+
           <br />
 
           <h2> My Profile </h2>
@@ -79,7 +77,7 @@ function SavedCountries({ countriesData }) {
               placeholder="Full Name"
               name="fullName"
               id="fullName"
-              // Extracts value of formData input by user in full name
+              // Extracts the full name value from formData (using dot notation) - which is submitted by user
               value={formData.fullName}
               // onChange calls the handleInputChange function, which changes or updates the new input or value submitted by user in the form
               onChange={handleInputChange}
@@ -120,6 +118,15 @@ function SavedCountries({ countriesData }) {
           </form>
         </div>
       )}
+      <h2> My Saved Countries</h2>
+      <div className="saved-countries-list">
+        {savedCountries &&
+          savedCountries
+            .filter((country) => country != null)
+            .map((country) => (
+              <CountryCard key={country.cca3} country={country} />
+            ))}
+      </div>
     </>
   );
 }
