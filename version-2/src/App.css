@@ -36,7 +36,14 @@ a {
   background-color: white;
   border: solid #858585 0.5px;
   border-radius: 5px;
+  width: 300px;
 }
+
+.country-card img {
+  width: 295px;
+  margin: auto;
+}
+
 .countries-container,
 .saved-countries-list {
   display: grid;

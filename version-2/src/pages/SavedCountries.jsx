@@ -59,16 +59,13 @@ function SavedCountries({ countriesData }) {
 
   return (
     <>
+      <h2> My Saved Countries</h2>
       {/* Ternary operator - if userInfo is true then to return the welcome message inlucding/accessing user's full name using dot notation */}
       {userInfo ? (
         <h2>Welcome {userInfo.fullName}!</h2>
       ) : (
         // If false :  render the form
         <div className="form-container">
-          <br />
-
-          <br />
-
           <h2> My Profile </h2>
           {/* Form has onSubmit handler that calls the handleSubmit function, when user clicks submit form button */}
           <form onSubmit={handleSubmit}>
@@ -118,7 +115,7 @@ function SavedCountries({ countriesData }) {
           </form>
         </div>
       )}
-      <h2> My Saved Countries</h2>
+
       <div className="saved-countries-list">
         {savedCountries &&
           savedCountries

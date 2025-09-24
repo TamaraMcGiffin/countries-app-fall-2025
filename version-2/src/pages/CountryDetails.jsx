@@ -1,13 +1,15 @@
 import "../App.css";
 import { useParams } from "react-router-dom";
+//Added useEffect
+import { useState, useEffect } from "react";
 // import { Routes, Route, Link } from "react-router-dom";
 import "../App.jsx";
 // import CountryCard from "../components/CountryCard.jsx";
 
 function CountryDetails({ countriesData }) {
-  // const countryName = useParams().countryName;
-  //
-  // const { countryName } = useParams();
+  // Setter function/variables with useState at default value of zero for view counts
+  const [viewCount, setViewCount] = useState(0);
+
   const countryName = useParams().countryName;
   console.log(countryName, "CountryDetails console check");
 
@@ -18,12 +20,29 @@ function CountryDetails({ countriesData }) {
   if (!country) {
     return <div>Country not found.</div>;
   }
+  // Moved useEffect outside of handleClick function
+  useEffect(() => {
+    // Changed [] to {} with quotes, want an empty object not an array?
+    const savedCounts = JSON.parse(
+      localStorage.getItem("country-view-count") || "{}"
+    );
+
+    // Declaring a variable called current count which keeps track of each country name if viewed, if not then start count at 0 (meaning no views)
+    const currentCount = savedCounts[countryName] || 0;
+    // Increase view count by 1
+    const updatedCount = currentCount + 1;
+    // Set the view count to update with the new count
+    setViewCount(updatedCount);
+
+    // Save the data of country view counts to local storage with updated count using setItem function
+    savedCounts[countryName] = updatedCount;
+    localStorage.setItem("country-view-count", JSON.stringify(savedCounts));
+  }, [countryName]);
 
   function handleClick() {
     if (country) {
       // Get the existing list of saved countries from localStorage.
 
-      // Had to re-formulate for initial state if nothing stored to localStorage yet or no saved country yet for new users
       const savedCountriesDestringified =
         localStorage.getItem("saved-countries");
       const listSavedCountries = savedCountriesDestringified
@@ -63,13 +82,12 @@ function CountryDetails({ countriesData }) {
             <b>Population:</b> {country.population.toLocaleString()}
           </p>
           <p>
-            <b>Region:</b> {country.region}
-          </p>
-          <p>
             <b>Capital:</b> {country.capital}
           </p>
-          {/* CountryCard component won't work however above code I had saved works! */}
-          {/* <CountryCard /> */}
+          <p>
+            <b>Region:</b> {country.region}
+          </p>
+          <p>Viewed: {viewCount} times </p>
         </div>
       </div>
     </>
