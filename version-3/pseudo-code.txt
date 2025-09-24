@@ -1,0 +1,266 @@
+-------------------------------------
+🧠 VERSION 3 PSEUDO-CODE WORKSHEET 
+-------------------------------------
+
+This is our WHAT, WHEN, WHERE, HOW framework for working with data:
+
+1. WHAT data should we store & retrieve? 
+
+   A: Countries Data from the API call
+
+
+   What kind of HTTP request do we need to send, and to what API endpoint? 
+
+   A: We need to send a GET request to the base URL: https://backend-answer-keys.onrender.com/ 
+   using the "get-all-saved-countries" endpoint
+
+
+
+   If we are sending a POST request, what do we need to send in the request body, and what is the data type? 
+
+   A: We would need to paste this into the body, which is an array of objects:
+   [
+  {
+    "country_name": "Japan"
+  },
+  {
+    "country_name": "Germany"
+  }
+]
+
+
+   What would we get back in the response, and what is the data type? 
+
+  A: An array of objects:
+  [
+    {
+        "country_name": "Afghanistan"
+    },
+    {
+        "country_name": "Brazil"
+    },
+    {
+        "country_name": "Vietnam"
+    },
+    {
+        "country_name": "Bulgaria"
+    },
+    {
+        "country_name": "Japan"
+    },
+    {
+        "country_name": "undefined"
+    },
+    {
+        "country_name": "Australia"
+    },
+    {
+        "country_name": "Fiji"
+    },
+    {
+        "country_name": "Thailand"
+    },
+    {
+        "country_name": "Chile"
+    }
+]
+
+  
+2. WHEN should we store & retrieve the data? 
+
+ A: In the fetch call
+
+   What event or user action is the trigger, such as clicking a button, submitting a form, or loading a page? 
+
+A: On page load
+
+
+3. WHERE does this happen in the code? 
+   What component, page or function? 
+
+  A: In the App.jsx page
+   
+
+4. HOW do we accomplish this? 
+   What steps do we need to take? 
+   Do we need to...
+    - make any GET or POST requests to an API endpoint? 
+    - render anything in JSX? 
+    - make any functions? If so, when would we call those functions? 
+    - use any useState or useEffect hooks? 
+  Remember: This is pseudo-code. Don't write code yet — just outline the actions in plain language. 
+
+✨ YOUR TASK: Fill in the answers to each WHAT/WHEN/WHERE/HOW question below for the 3 pieces of data. 
+
+------------------------
+📊 FORM DATA 
+------------------------
+
+------------------------
+🔶 STORING FORM DATA 
+------------------------
+
+WHAT...
+  TYPE OF HTTP REQUEST (GET OR POST): POST
+  API ENDPOINT: /add-one-user
+
+  REQUEST BODY DATA TYPE (if applicable): Object
+  REQUEST BODY (if applicable): {
+  "name": "Alice",
+  "country_name": "Germany",
+  "email": "alice@example.com",
+  "bio": "A little about Alice"
+}
+  
+  RESPONSE DATA TYPE: String
+  RESPONSE: Success! User has been added.
+
+WHEN: On submitting the form
+
+WHERE: In the handleSubmit function in the SavedCountries.jsx file
+
+HOW: 
+Step 1: 
+Step 2: 
+Step 3: _______
+Add more steps as needed! 
+
+------------------------
+🔶 RETRIEVING FORM DATA 
+------------------------
+WHAT...
+  TYPE OF HTTP REQUEST (GET OR POST): GET
+  API ENDPOINT:/get-all-users
+
+  REQUEST BODY DATA TYPE (if applicable): N/A
+  REQUEST BODY (if applicable): N/A
+  
+  RESPONSE DATA TYPE: Array of Objects or Object 
+  RESPONSE:
+
+  [
+  {
+    "user_id": 1,
+    "name": "Jane Doe",
+    "country_name": "USA",
+    "email": "jane@example.com",
+    "bio": "Short bio here"
+  },
+  {
+    "user_id": 2,
+    "name": "Paul Smith",
+    "country_name": "Australia",
+    "email": "paul@example.com",
+    "bio": "Short bio here"
+  },
+]
+  
+WHEN: When user clicks submit button
+
+WHERE: SavedCountries.jsx
+
+HOW: 
+Step 1: _______
+Step 2: _______
+Step 3: _______
+Add more steps as needed! 
+
+------------------------
+📊 SAVED COUNTRIES DATA 
+------------------------
+
+------------------------
+🔶 STORING SAVED COUNTRIES DATA 
+------------------------
+
+WHAT...
+  TYPE OF HTTP REQUEST (GET OR POST): POST
+  API ENDPOINT: /save-one-country
+
+
+  REQUEST BODY DATA TYPE (if applicable): Object
+
+  REQUEST BODY (if applicable):
+  
+ {
+  "country_name": "Brazil"
+}
+  
+  RESPONSE DATA TYPE: String
+  RESPONSE: Success! The country is saved.
+
+WHEN: When user clicks save button handleClick function
+
+WHERE: handlClick function in CountryDetails.jsx
+
+HOW: 
+Step 1: _______
+Step 2: _______
+Step 3: _______
+Add more steps as needed! 
+
+------------------------
+🔶 RETRIEVING SAVED COUNTRIES DATA 
+------------------------
+
+WHAT...
+  TYPE OF HTTP REQUEST (GET OR POST): GET
+  API ENDPOINT: /get-all-saved-countries
+  REQUEST BODY DATA TYPE (if applicable): N/A
+  REQUEST BODY (if applicable): N/A
+  
+  RESPONSE DATA TYPE: Object (An array of objects)
+  RESPONSE:
+[
+  {
+    "country_name": "Japan"
+  },
+  {
+    "country_name": "Germany"
+  }
+]
+
+WHEN: When Saved Countries page loads
+
+WHERE: SavedCountries.jsx
+
+HOW: 
+Step 1: _______
+Step 2: _______
+Step 3: _______
+Add more steps as needed! 
+
+------------------------
+📊 COUNTRY COUNTS DATA 
+------------------------
+
+------------------------
+🔶 STORING & RETRIEVING COUNTRY COUNTS DATA 
+------------------------
+NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.
+
+WHAT...
+  TYPE OF HTTP REQUEST (GET OR POST): POST
+  API ENDPOINT: /update-one-country-count
+
+  REQUEST BODY DATA TYPE (if applicable): Object
+  REQUEST BODY (if applicable):
+ {
+  "country_name": "France"
+}
+  
+  RESPONSE DATA TYPE: Object
+  RESPONSE:
+  {
+  "count": 3
+}
+  
+WHEN: When country page loads
+
+WHERE: In CountryDetails.jsx (useEffect function)
+
+HOW: 
+Step 1: _______
+Step 2: _______
+Step 3: _______
+Add more steps as needed! 
