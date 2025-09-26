@@ -61,61 +61,57 @@ function SavedCountries({ countriesData }) {
     <>
       <h2> My Saved Countries</h2>
       {/* Ternary operator - if userInfo is true then to return the welcome message inlucding/accessing user's full name using dot notation */}
-      {userInfo ? (
-        <h2>Welcome {userInfo.fullName}!</h2>
-      ) : (
-        // If false :  render the form
-        <div className="form-container">
-          <h2> My Profile </h2>
-          {/* Form has onSubmit handler that calls the handleSubmit function, when user clicks submit form button */}
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Full Name"
-              name="fullName"
-              id="fullName"
-              // Extracts the full name value from formData (using dot notation) - which is submitted by user
-              value={formData.fullName}
-              // onChange calls the handleInputChange function, which changes or updates the new input or value submitted by user in the form
-              onChange={handleInputChange}
-            />
+      {userInfo && <h2>Welcome {userInfo.fullName}!</h2>}
 
-            <input
-              type="text"
-              placeholder="Email"
-              name="email"
-              id="email"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
+      <div className="form-container">
+        <h2> My Profile </h2>
+        {/* Form has onSubmit handler that calls the handleSubmit function, when user clicks submit form button */}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Full Name"
+            name="fullName"
+            id="fullName"
+            // Extracts the full name value from formData (using dot notation) - which is submitted by user
+            value={formData.fullName}
+            // onChange calls the handleInputChange function, which changes or updates the new input or value submitted by user in the form
+            onChange={handleInputChange}
+          />
 
-            <input
-              type="text"
-              placeholder="Country"
-              name="country"
-              id="country"
-              value={formData.country}
-              onChange={handleInputChange}
-            />
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            id="email"
+            value={formData.email}
+            onChange={handleInputChange}
+          />
 
-            <textarea
-              id="bio"
-              placeholder="Bio"
-              name="bio"
-              rows="4"
-              cols="50"
-              value={formData.bio}
-              onChange={handleInputChange}
-            />
-            <br />
-            <br />
-            <button className="form-button" type="submit">
-              Submit
-            </button>
-          </form>
-        </div>
-      )}
+          <input
+            type="text"
+            placeholder="Country"
+            name="country"
+            id="country"
+            value={formData.country}
+            onChange={handleInputChange}
+          />
 
+          <textarea
+            id="bio"
+            placeholder="Bio"
+            name="bio"
+            rows="4"
+            cols="50"
+            value={formData.bio}
+            onChange={handleInputChange}
+          />
+          <br />
+          <br />
+          <button className="form-button" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
       <div className="saved-countries-list">
         {savedCountries &&
           savedCountries
