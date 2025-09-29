@@ -1,12 +1,11 @@
 import "../App.css";
-import { useParams } from "react-router-dom";
-//Added useEffect
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import { Routes, Route, Link } from "react-router-dom";
 import "../App.jsx";
-// import CountryCard from "../components/CountryCard.jsx";
 
 function CountryDetails({ countriesData }) {
+  // Declaring variable to navigate back button to home page
+  const navigate = useNavigate();
   // Setter function/variables with useState at default value of zero for view counts
   const [viewCount, setViewCount] = useState(0);
 
@@ -20,9 +19,8 @@ function CountryDetails({ countriesData }) {
   if (!country) {
     return <div>Country not found.</div>;
   }
-  // Moved useEffect outside of handleClick function
+
   useEffect(() => {
-    // Changed [] to {} with quotes, want an empty object not an array?
     const savedCounts = JSON.parse(
       localStorage.getItem("country-view-count") || "{}"
     );
@@ -67,9 +65,18 @@ function CountryDetails({ countriesData }) {
     }
   }
 
+  // Creating a function with useNavigate to go back (-1) one page/previous page which is the home page
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
-      <button className="back-button"> ← Back </button>
+      {/* Attached goBack function to button */}
+      <button className="back-button" onClick={goBack}>
+        {" "}
+        ← Back{" "}
+      </button>
 
       <div className="details-countrycard">
         <img src={country.flags.png} alt={`${country.name.common} flag`} />

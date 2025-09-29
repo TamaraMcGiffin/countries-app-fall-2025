@@ -24,37 +24,74 @@ function SavedCountries({ countriesData }) {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Step 1: Declare a new function called storeUserData() which should send a POST request to the API to the /add-one-user endpoint
+  // Step 2: Call the storeUserData() function on submit
+
+  const storeUserData = async () => {
+    // When we call the fetch() function, we only need to pass in
+    // The API url as one parameter when it's a GET request
+    // When we need to make a POST request, we have to pass in a second parameter: an Object
+    const response = await fetch(
+      "https://backend-answer-keys.onrender.com/add-one-user",
+      {
+        method: "POST", // We need to say we're sending a POST request because by default it's always a GET request
+        headers: {
+          // Headers is where we put metadata about our request, including the data type that we pass in the body
+          // In this case, we are saying we're passing in JSON data in the body
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.fullName,
+          country_name: formData.country,
+          email: formData.email,
+          bio: formData.bio,
+        }),
+      }
+    );
+  };
   // handleSubmit function handles the event (e) object when form is submitted, preventDefault keeps it from reloading
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData, "form was submitted");
 
-    // Declaring a variable called 'stringified' to store/house the formData using the stringify method
-    let stringified = JSON.stringify(formData);
-    // Here I am using the setItem method to save to localStorage
-    localStorage.setItem("profile", stringified);
-
-    // setting user info to formData
+    storeUserData();
+    // Setting user info to formData
     setUserInfo(formData);
-    // resets the form to empty state
+    // Resets the form to empty state
     setFormData(emptyFormState);
   };
 
-  // Here I am using a conditional statement in a useEffect function for the user's profile in getItem to convert the strings of key/value pairs into a JSON formatted object using the JSON parse() method
+  // Step 1: Make a function called getNewestUser() that will get the form data from the API by sending a GET request to the /get-newest-user-endpoint
+
+  // Step 2: Save the form data in a state variable using useState()
+
+  const getNewestUser = async () => {
+    // Declare a variable that will hold the response from the GET request to /get-newest-user
+    const response = await fetch(
+      "https://backend-answer-keys.onrender.com/get-newest-user"
+    );
+    // Turn the response into json format
+    const data = await response.json();
+    console.log(data);
+    const newestUserFromAPI = data[0];
+    // Save the data in state
+    setUserInfo({
+      fullName: newestUserFromAPI.name,
+      email: newestUserFromAPI.email,
+      country: newestUserFromAPI.country,
+      bio: newestUserFromAPI.bio,
+    });
+
+    //Trying to fix rendering saved countries, pushing to Github to keep track of current code after fixing bug
+  };
+
+  // Step 3: Call the getNewestUser() function on page load in the useEffect()
+
+  // Step 4: Conditionally render the user's name in the return statement (in JSX) if the user's name exists
+  // Add more steps as needed!
+
   useEffect(() => {
-    if (localStorage.getItem("profile")) {
-      let profileDeStringified = JSON.parse(localStorage.getItem("profile"));
-      setUserInfo(profileDeStringified);
-    }
-    // Declaring a variable of saved to represent the JSON parse/getItem method for cleaner code
-    // JSON parse is used to convert JSON string into an object or array
-
-    //TAM Note: added || and empty array
-    let saved = JSON.parse(localStorage.getItem("saved-countries") || "[]");
-
-    // Setting saved countries (list of saved countries) of the items retrieved from localStorage using the getItem method saved in the variable above
-    setSavedCountries(saved);
-    console.log("saved", saved);
+    getNewestUser();
   }, []);
 
   return (
