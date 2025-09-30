@@ -20,21 +20,50 @@ function CountryDetails({ countriesData }) {
     return <div>Country not found.</div>;
   }
 
+  // Function used to retrieve JSON data from the API call or URL
+  // Using a fetch call with async/try boilerplate code and passing through a dynamic name prop to retrieve from dynamic API call key of country_name instead of "France" - no ""'s needed
+
+  const getNewCountryCount = async (name) => {
+    try {
+      const response = await fetch(
+        "https://backend-answer-keys.onrender.com/update-one-country-count",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            country_name: name,
+          }),
+        }
+      );
+
+      // This if statement found on MDN Docs is using what is called a guard clause instead of an else statement
+      // Used to check response status if 404 error and "throw if not okay", otherwise fetch response body content
+
+      if (!response.ok) {
+        console.error("Server error status", response.status);
+        return 0;
+      }
+
+      const result = await response.json();
+      return result.count;
+    } catch (error) {
+      console.error("Error during API request", error);
+      return 0;
+    }
+  };
+
+  // This useEffect function is being used to setViewCount upon load and calling the showNewCount async function which is nested inside of the useEffect function
+  // The newCount variable is awaiting to get or retrieve the updated count and passing through the data from countryName key in API call
+  // The [countryName] line is a dependency array passing through to retrieve the key of countryName via useParams(); method
+  
   useEffect(() => {
-    const savedCounts = JSON.parse(
-      localStorage.getItem("country-view-count") || "{}"
-    );
-
-    // Declaring a variable called current count which keeps track of each country name if viewed, if not then start count at 0 (meaning no views)
-    const currentCount = savedCounts[countryName] || 0;
-    // Increase view count by 1
-    const updatedCount = currentCount + 1;
-    // Set the view count to update with the new count
-    setViewCount(updatedCount);
-
-    // Save the data of country view counts to local storage with updated count using setItem function
-    savedCounts[countryName] = updatedCount;
-    localStorage.setItem("country-view-count", JSON.stringify(savedCounts));
+    const showNewCount = async () => {
+      const newCount = await getNewCountryCount(countryName);
+      setViewCount(newCount);
+    };
+    showNewCount();
   }, [countryName]);
 
   function handleClick() {

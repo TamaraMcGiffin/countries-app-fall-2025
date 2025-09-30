@@ -81,8 +81,6 @@ function SavedCountries({ countriesData }) {
       country: newestUserFromAPI.country,
       bio: newestUserFromAPI.bio,
     });
-
-    //Trying to fix rendering saved countries, pushing to Github to keep track of current code after fixing bug
   };
 
   // Step 3: Call the getNewestUser() function on page load in the useEffect()

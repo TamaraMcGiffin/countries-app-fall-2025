@@ -120,9 +120,9 @@ WHEN: On submitting the form
 WHERE: In the handleSubmit function in the SavedCountries.jsx file
 
 HOW: 
-Step 1: 
-Step 2: 
-Step 3: _______
+Step 1: Create a function called storeUserData
+Step 2: Use async boilerplate code in function and make a POST request after testing URL in Postman 
+Step 3: Call storeUserData in the handleSubmit button (when user submits the form)
 Add more steps as needed! 
 
 ------------------------
@@ -160,9 +160,9 @@ WHEN: When user clicks submit button
 WHERE: SavedCountries.jsx
 
 HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
+Step 1: Create a function called getNewestUser that uses GET to retrieve the newest user data
+Step 2:  Use async boilerplate code in function and make a GET request after testing URL in Postman
+Step 3: Call function getNewestUser on page load - getNewestUser();
 Add more steps as needed! 
 
 ------------------------
@@ -191,12 +191,10 @@ WHAT...
 
 WHEN: When user clicks save button handleClick function
 
-WHERE: handlClick function in CountryDetails.jsx
+WHERE: handleClick function in CountryDetails.jsx
 
 HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
+
 Add more steps as needed! 
 
 ------------------------
@@ -260,7 +258,7 @@ WHEN: When country page loads
 WHERE: In CountryDetails.jsx (useEffect function)
 
 HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
+Step 1: Create a function called getNewCountryCount 
+Step 2: Use async fetch boilerplate code with the API url and /update-one-country-count endpoint after testing in Postman and also add body details
+Step 3: Call getNewCountryCount function in useEffect function
 Add more steps as needed! 
