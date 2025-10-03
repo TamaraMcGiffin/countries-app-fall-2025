@@ -20,8 +20,10 @@ function CountryDetails({ countriesData }) {
     return <div>Country not found.</div>;
   }
 
-  // Function used to retrieve JSON data from the API call or URL
-  // Using a fetch call with async/try boilerplate code and passing through a dynamic name prop to retrieve from dynamic API call key of country_name instead of "France" - no ""'s needed
+  // Function used to retrieve JSON data from the API call, using a base URL and endpoint
+  // Using a fetch call with async/try boilerplate code and passing through a dynamic prop called "name" to retrieve from dynamic API call key of country_name instead of "France" - no ""'s needed
+  // Headers are key-value pairs sent between the client and server in an HTTP request or response
+  // The body is requesting to convert the desired object in the API call into a JSON string
 
   const getNewCountryCount = async (name) => {
     try {
@@ -38,8 +40,12 @@ function CountryDetails({ countriesData }) {
         }
       );
 
-      // This if statement found on MDN Docs is using what is called a guard clause instead of an else statement
-      // Used to check response status if 404 error and "throw if not okay", otherwise fetch response body content
+      // This IF statement I found as demonstrated on MDN Docs is using what is called a guard clause instead of an else statement
+      // Used to check response status if 404 error and "throw if not okay" (!) , otherwise fetch response body content
+      // response.json() turns response object into JSON friendly format
+      // the return result.count line is the result of the JSON object retrieved from the response and targeting the key called "count" which holds the value of the count number
+      //setViewCount updates the count key retrieved from the API response
+      // The purpose of return 0; - if there is an error, don't run the code in the rest of the function
 
       if (!response.ok) {
         console.error("Server error status", response.status);
@@ -47,50 +53,53 @@ function CountryDetails({ countriesData }) {
       }
 
       const result = await response.json();
-      return result.count;
+      setViewCount(result.count);
     } catch (error) {
       console.error("Error during API request", error);
       return 0;
     }
   };
 
-  // This useEffect function is being used to setViewCount upon load and calling the showNewCount async function which is nested inside of the useEffect function
+  // This useEffect function is being used to set the updated view count upon load and holds another function, the showNewCount async function which is nested inside of the useEffect function
   // The newCount variable is awaiting to get or retrieve the updated count and passing through the data from countryName key in API call
-  // The [countryName] line is a dependency array passing through to retrieve the key of countryName via useParams(); method
-  
+  // setViewCount is a useState which calls upon the newCount variable which holds the updated view count
+  // The [countryName] line is a dependency array passing through to retrieve the object & key of countryName which works via housing the useParams(); method
+
   useEffect(() => {
-    const showNewCount = async () => {
-      const newCount = await getNewCountryCount(countryName);
-      setViewCount(newCount);
-    };
-    showNewCount();
+    getNewCountryCount(countryName);
   }, [countryName]);
+
+  // Moved storeSavedCountry OUT of handleClick function - biggest debug!!
+
+  const storeSavedCountry = async (name) => {
+    try {
+      const response = await fetch(
+        "https://backend-answer-keys.onrender.com/save-one-country",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            country_name: name,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        console.error("Error:", response.status);
+        return false;
+      }
+      console.log(`${name} saved`);
+      return true;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   function handleClick() {
     if (country) {
-      // Get the existing list of saved countries from localStorage.
-
-      const savedCountriesDestringified =
-        localStorage.getItem("saved-countries");
-      const listSavedCountries = savedCountriesDestringified
-        ? JSON.parse(savedCountriesDestringified)
-        : [];
-      // Assigning a variable savedToList to equal value of the list of saved countries(listSavedCountries) if savedCountry is true
-      const savedToList = listSavedCountries.find(
-        (savedCountry) => savedCountry.name.common === country.name.common
-      );
-
-      // If the country has not been saved to the list, then add it to the list/update the list
-      if (!savedToList) {
-        // Create a new and updated array with all the current saved countries plus the new one
-        const updatedSavedCountries = [...listSavedCountries, country];
-
-        localStorage.setItem(
-          "saved-countries",
-          JSON.stringify(updatedSavedCountries)
-        );
-        console.log(`${country.name.common} is saved to list`);
-      }
+      storeSavedCountry(country.name.common);
     }
   }
 
@@ -123,6 +132,7 @@ function CountryDetails({ countriesData }) {
           <p>
             <b>Region:</b> {country.region}
           </p>
+          {/* useState variable of viewCount rendered here, viewCount represents updated count determined by setViewCount with functions that do the job */}
           <p>Viewed: {viewCount} times </p>
         </div>
       </div>

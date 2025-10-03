@@ -194,7 +194,10 @@ WHEN: When user clicks save button handleClick function
 WHERE: handleClick function in CountryDetails.jsx
 
 HOW: 
-
+Step 1: Create a function called storeSavedCountry that uses POST request to store a request body of provided object with key and name of country which will be dynamic prop of name for API call
+Step 2: Use async boilerplate try fetch code for POST request
+Step 3: Call storeSavedCountry function in handleClick function
+LATER NOTE: Step 4: Added a guard clause as learned, debugged using pseudocode
 Add more steps as needed! 
 
 ------------------------
@@ -223,8 +226,8 @@ WHEN: When Saved Countries page loads
 WHERE: SavedCountries.jsx
 
 HOW: 
-Step 1: _______
-Step 2: _______
+Step 1: Created a function that will GET 
+Step 2: 
 Step 3: _______
 Add more steps as needed! 
 
