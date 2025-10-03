@@ -8,6 +8,7 @@ function CountryDetails({ countriesData }) {
   const navigate = useNavigate();
   // Setter function/variables with useState at default value of zero for view counts
   const [viewCount, setViewCount] = useState(0);
+  const [isSaved, setIsSaved] = useState();
 
   const countryName = useParams().countryName;
   console.log(countryName, "CountryDetails console check");
@@ -53,7 +54,7 @@ function CountryDetails({ countriesData }) {
       }
 
       const result = await response.json();
-      setViewCount(result.count);
+      return result.count;
     } catch (error) {
       console.error("Error during API request", error);
       return 0;
@@ -66,7 +67,11 @@ function CountryDetails({ countriesData }) {
   // The [countryName] line is a dependency array passing through to retrieve the object & key of countryName which works via housing the useParams(); method
 
   useEffect(() => {
-    getNewCountryCount(countryName);
+    const updateCountryCount = async () => {
+      const newCount = await getNewCountryCount(countryName);
+      setViewCount(newCount);
+    };
+    updateCountryCount();
   }, [countryName]);
 
   // Moved storeSavedCountry OUT of handleClick function - biggest debug!!
@@ -97,9 +102,33 @@ function CountryDetails({ countriesData }) {
     }
   };
 
-  function handleClick() {
+  const getStoredSavedCountry = async () => {
+    const response = await fetch(
+      "https://backend-answer-keys.onrender.com/get-all-saved-countries"
+    );
+
+    const savedCountryData = await response.json();
+
+    const countryHasBeenSaved = savedCountryData.some(
+      (savedCountry) => savedCountry.country_name === countryName
+    );
+
+    setIsSaved(countryHasBeenSaved);
+
+    console.log(savedCountryData);
+  };
+
+  useEffect(() => {
+    getStoredSavedCountry();
+  }, []);
+
+  async function handleClick() {
     if (country) {
-      storeSavedCountry(country.name.common);
+      const grabbed = await storeSavedCountry(country.name.common);
+
+      if (grabbed) {
+        setIsSaved(true);
+      }
     }
   }
 
@@ -120,7 +149,11 @@ function CountryDetails({ countriesData }) {
         <img src={country.flags.png} alt={`${country.name.common} flag`} />
         <div className="details-infocard">
           <h2>{country.name.common}</h2>
-          <button className="save-button" onClick={handleClick}>
+          <button
+            className="save-button"
+            onClick={handleClick}
+            disabled={isSaved}
+          >
             Save
           </button>
           <p>

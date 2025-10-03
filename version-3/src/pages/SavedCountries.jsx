@@ -88,8 +88,39 @@ function SavedCountries({ countriesData }) {
   // Step 4: Conditionally render the user's name in the return statement (in JSX) if the user's name exists
   // Add more steps as needed!
 
+  // Create a function for rendering, other function will be for separate purposes - rename according to task
+
+  const renderSavedCountries = async () => {
+    try {
+      const response = await fetch(
+        "https://backend-answer-keys.onrender.com/get-all-saved-countries"
+      );
+
+      if (!response.ok) {
+        console.error("Error", response.status);
+        return;
+      }
+
+      const savedCountryData = await response.json();
+
+      const savedCountryList = savedCountryData.map(
+        (item) => item.country_name
+      );
+      // Fixed misspelling names to name
+      const allSavedCountries = countriesData.filter((country) =>
+        savedCountryList.includes(country.name.common)
+      );
+      setSavedCountries(allSavedCountries);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  //Call renderSavedCountries in useEffect
+
   useEffect(() => {
     getNewestUser();
+    renderSavedCountries();
   }, []);
 
   return (
