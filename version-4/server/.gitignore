@@ -15,6 +15,7 @@ dist-ssr
 *.local
 config.js 
 
+# May need to replace neon database special url for config.js and re push to github - MAKE SURE in gitignore this time before re push!!
 
 # Editor directories and files
 .vscode/*
