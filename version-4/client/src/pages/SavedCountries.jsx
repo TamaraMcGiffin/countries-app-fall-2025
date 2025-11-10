@@ -32,7 +32,7 @@ function SavedCountries({ countriesData }) {
     // The API url as one parameter when it's a GET request
     // When we need to make a POST request, we have to pass in a second parameter: an Object
     const response = await fetch(
-      "https://backend-answer-keys.onrender.com/add-one-user",
+      "/api/add-one-user",
       {
         method: "POST", // We need to say we're sending a POST request because by default it's always a GET request
         headers: {
@@ -68,7 +68,7 @@ function SavedCountries({ countriesData }) {
   const getNewestUser = async () => {
     // Declare a variable that will hold the response from the GET request to /get-newest-user
     const response = await fetch(
-      "https://backend-answer-keys.onrender.com/get-newest-user"
+      "/api/get-newest-user"
     );
     // Turn the response into json format
     const data = await response.json();
@@ -93,7 +93,7 @@ function SavedCountries({ countriesData }) {
   const renderSavedCountries = async () => {
     try {
       const response = await fetch(
-        "https://backend-answer-keys.onrender.com/get-all-saved-countries"
+        "/api/get-all-saved-countries"
       );
 
       if (!response.ok) {

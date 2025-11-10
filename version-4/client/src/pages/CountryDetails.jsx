@@ -29,7 +29,7 @@ function CountryDetails({ countriesData }) {
   const getNewCountryCount = async (name) => {
     try {
       const response = await fetch(
-        "https://backend-answer-keys.onrender.com/update-one-country-count",
+        "/api/update-one-country-count",
         {
           method: "POST",
           headers: {
@@ -79,7 +79,7 @@ function CountryDetails({ countriesData }) {
   const storeSavedCountry = async (name) => {
     try {
       const response = await fetch(
-        "https://backend-answer-keys.onrender.com/save-one-country",
+        "/api/save-one-country",
         {
           method: "POST",
           headers: {
@@ -104,7 +104,7 @@ function CountryDetails({ countriesData }) {
 
   const getStoredSavedCountry = async () => {
     const response = await fetch(
-      "https://backend-answer-keys.onrender.com/get-all-saved-countries"
+      "/api/get-all-saved-countries"
     );
 
     const savedCountryData = await response.json();
