@@ -28,6 +28,11 @@ function App() {
       // This line handles any errors during fetch call
       .catch((error) => console.log("Error: " + error.message));
   };
+
+  // Endpoint function goes here
+  // Call Endpoint
+  // Ask Arianna if this is currently needed in the Version 4 for completion? 
+  
   // console.log(countryData, "flag debugging");
 
   // This is a useEffect hook being used to call on the getCountriesData function to fetch the data & using empty array (?)
