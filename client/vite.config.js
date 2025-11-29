@@ -10,7 +10,8 @@ export default defineConfig({
         target: "http://localhost:3000",
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        // Commented out below line to try and fix 404 error - and it works!!!
+        // rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

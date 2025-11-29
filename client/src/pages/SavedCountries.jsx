@@ -31,23 +31,20 @@ function SavedCountries({ countriesData }) {
     // When we call the fetch() function, we only need to pass in
     // The API url as one parameter when it's a GET request
     // When we need to make a POST request, we have to pass in a second parameter: an Object
-    const response = await fetch(
-      "/api/add-one-user",
-      {
-        method: "POST", // We need to say we're sending a POST request because by default it's always a GET request
-        headers: {
-          // Headers is where we put metadata about our request, including the data type that we pass in the body
-          // In this case, we are saying we're passing in JSON data in the body
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.fullName,
-          country_name: formData.country,
-          email: formData.email,
-          bio: formData.bio,
-        }),
-      }
-    );
+    const response = await fetch("/api/add-one-user", {
+      method: "POST", // We need to say we're sending a POST request because by default it's always a GET request
+      headers: {
+        // Headers is where we put metadata about our request, including the data type that we pass in the body
+        // In this case, we are saying we're passing in JSON data in the body
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.fullName,
+        country_name: formData.country,
+        email: formData.email,
+        bio: formData.bio,
+      }),
+    });
   };
   // handleSubmit function handles the event (e) object when form is submitted, preventDefault keeps it from reloading
   const handleSubmit = (e) => {
@@ -64,25 +61,49 @@ function SavedCountries({ countriesData }) {
   // Step 1: Make a function called getNewestUser() that will get the form data from the API by sending a GET request to the /get-newest-user-endpoint
 
   // Step 2: Save the form data in a state variable using useState()
-
+  // ORIGINAL ATTEMPT - SAVING CODE
+  // const getNewestUser = async () => {
+  //   // Declare a variable that will hold the response from the GET request to /get-newest-user
+  //   const response = await fetch(
+  //     "/api/get-newest-user"
+  //   );
+  //   // Turn the response into json format
+  //   const data = await response.json();
+  //   console.log(data);
+  //   const newestUserFromAPI = data[0];
+  //   // Save the data in state
+  //   setUserInfo({
+  //     fullName: newestUserFromAPI.name,
+  //     email: newestUserFromAPI.email,
+  //     country: newestUserFromAPI.country,
+  //     bio: newestUserFromAPI.bio,
+  //   });
+  // };
+  // SECOND ATTEMPT
   const getNewestUser = async () => {
-    // Declare a variable that will hold the response from the GET request to /get-newest-user
-    const response = await fetch(
-      "/api/get-newest-user"
-    );
-    // Turn the response into json format
-    const data = await response.json();
-    console.log(data);
-    const newestUserFromAPI = data[0];
-    // Save the data in state
-    setUserInfo({
-      fullName: newestUserFromAPI.name,
-      email: newestUserFromAPI.email,
-      country: newestUserFromAPI.country,
-      bio: newestUserFromAPI.bio,
-    });
+    try {
+      const response = await fetch("/api/get-newest-user");
+      if (!response.ok) {
+        console.error("Error retrieving new user", response.status);
+        return;
+      }
+      const newestUserFromAPI = await response.json();
+      console.log("New user data", newestUserFromAPI);
+      if (!newestUserFromAPI) {
+        console.log("No new user found");
+        return;
+      }
+      setUserInfo({
+        fullName: newestUserFromAPI.name,
+        email: newestUserFromAPI.email,
+        // fixed dot notation from country to country_name
+        country: newestUserFromAPI.country_name,
+        bio: newestUserFromAPI.bio,
+      });
+    } catch (error) {
+      console.error("Error", error);
+    }
   };
-
   // Step 3: Call the getNewestUser() function on page load in the useEffect()
 
   // Step 4: Conditionally render the user's name in the return statement (in JSX) if the user's name exists
@@ -92,9 +113,7 @@ function SavedCountries({ countriesData }) {
 
   const renderSavedCountries = async () => {
     try {
-      const response = await fetch(
-        "/api/get-all-saved-countries"
-      );
+      const response = await fetch("/api/get-all-saved-countries");
 
       if (!response.ok) {
         console.error("Error", response.status);
@@ -103,9 +122,11 @@ function SavedCountries({ countriesData }) {
 
       const savedCountryData = await response.json();
 
-      const savedCountryList = savedCountryData.map(
-        (item) => item.country_name
-      );
+      // const savedCountryList = savedCountryData.map(
+      //   (item) => item.country_name
+      // );
+//Revised
+      const savedCountryList = savedCountryData;
       // Fixed misspelling names to name
       const allSavedCountries = countriesData.filter((country) =>
         savedCountryList.includes(country.name.common)
