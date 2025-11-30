@@ -28,18 +28,15 @@ function CountryDetails({ countriesData }) {
 
   const getNewCountryCount = async (name) => {
     try {
-      const response = await fetch(
-        "/api/update-one-country-count",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            country_name: name,
-          }),
-        }
-      );
+      const response = await fetch("/api/update-one-country-count", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          country_name: name,
+        }),
+      });
 
       // This IF statement I found as demonstrated on MDN Docs is using what is called a guard clause instead of an else statement
       // Used to check response status if 404 error and "throw if not okay" (!) , otherwise fetch response body content
@@ -78,18 +75,15 @@ function CountryDetails({ countriesData }) {
 
   const storeSavedCountry = async (name) => {
     try {
-      const response = await fetch(
-        "/api/save-one-country",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            country_name: name,
-          }),
-        }
-      );
+      const response = await fetch("/api/save-one-country", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          country_name: name,
+        }),
+      });
 
       if (!response.ok) {
         console.error("Error:", response.status);
@@ -103,9 +97,7 @@ function CountryDetails({ countriesData }) {
   };
 
   const getStoredSavedCountry = async () => {
-    const response = await fetch(
-      "/api/get-all-saved-countries"
-    );
+    const response = await fetch("/api/get-all-saved-countries");
 
     const savedCountryData = await response.json();
 

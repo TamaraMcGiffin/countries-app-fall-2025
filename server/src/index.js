@@ -36,7 +36,7 @@ async function getNewestUser() {
     );
     return data.rows[0];
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error", error);
     return null;
   }
 }
@@ -46,7 +46,7 @@ async function getAllUsers() {
     const data = await db.query("SELECT * FROM users");
     return data.rows;
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error", error);
     return [];
   }
 }
@@ -59,7 +59,7 @@ async function addOneUser(name, country_name, email, bio) {
     );
     return result.rows[0];
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error", error);
     return null;
   }
 }
@@ -78,69 +78,37 @@ async function getAllSavedCountries() {
     return [];
   }
 }
+
+async function updateTheCountryCount(country_name) {
+  if (!country_name) {
+    console.error("Updated country count failed");
+    // 0 used in count/numbers
+    return 0;
+  }
+  // fixed counts to count, mispelled
+  try {
+    const CountryCountQuery = `INSERT INTO country_counts (country_name, count) VALUES ($1, 1) ON CONFLICT (country_name) DO UPDATE SET count = country_counts.count + 1 RETURNING count;`;
+
+    const result = await db.query(CountryCountQuery, [country_name]);
+
+    if (result.rows.length > 0) {
+      //parseInt = parse a string and return an integer
+      return parseInt(result.rows[0].count, 10);
+    }
+    return 0;
+  } catch (error) {
+    console.error("Error", error);
+    return 0;
+  }
+}
 /*----------------------------------
 API Endpoints
 ----------------------------------*/
-// Reminder: use terminal to cd to src folder in server, node index.js to activate server port for Postman
+// Reminder: use terminal to cd to src folder in server, node index.js to activate server port
 
 // Endpoint successfully tested in Postman
 
 // Debugging note for backend: missing api/ on endpoints? 404 Error message
-
-// app.get("/get-newest-user", async (req, res) => {
-//   try {
-//     const newestUser = await getNewestUser();
-//     if (newestUser) {
-//       res.json(newestUser);
-//     } else {
-//       return res.status(500).json({ status: "Unable to retrive newest user" });
-//     }
-//   } catch (error) {
-//     console.error("Error:", error);
-//     res.status(500).json({ status: "Unable to retrieve newest user" });
-//   }
-// });
-
-// // Endpoint successfully tested in Postman
-
-// app.get("/get-all-users", async (req, res) => {
-//   try {
-//     const allUsers = await getAllUsers();
-//     res.json(allUsers);
-//   } catch (error) {
-//     console.error("Error:", error);
-//     res.status(500).json({ status: "Unable to retrieve all users" });
-//   }
-// });
-
-// // Note for later: Must put POST where form lives - in SavedCountries.jsx
-
-// // POST request body for testing, no user id needed
-// // {
-// //     "name": "Tamara",
-// //     "country_name": "USA",
-// //     "email": "tamara@world.com",
-// //     "bio": "Social Justice Warrior"
-// // }
-
-// // Endpoint successfully tested in Postman!!
-
-// app.post("/add-one-user", async (req, res) => {
-//   const { name, country_name, email, bio } = req.body;
-
-//   if (!name || !country_name || !email) {
-//     return res.status(400).json({ status: "Missing user information" });
-//   }
-
-//   try {
-//     const newUser = await addOneUser(name, country_name, email, bio);
-
-//     res.status(201).json(newUser);
-//   } catch (error) {
-//     console.error("Error:", error);
-//     res.status(500).json({ status: "Failed to add new user" });
-//   }
-// });
 
 //SECOND ATTEMPT: Need to test first one with backend running, forgot to run server side
 // Add /api to endpoints to match frontend calls
@@ -196,5 +164,25 @@ app.get("/api/get-all-saved-countries", async (req, res) => {
   } catch (error) {
     console.error("Error", error);
     res.status(500).json({ status: "Unable to retrieve saved countries" });
+  }
+});
+
+// Country Counts Endpoint
+
+app.post("/api/update-one-country-count", async (req, res) => {
+  const { country_name } = req.body;
+
+  if (!country_name) {
+    return res
+      .status(400)
+      .json({ status: "Error retrieving country name for count" });
+  }
+  try {
+    const currentCount = await updateTheCountryCount(country_name);
+    // fixed camelCase in currentCount
+    res.json({ count: currentCount });
+  } catch (error) {
+    console.error("Error country count api", error);
+    res.status(500).json({ status: "No count updated" });
   }
 });
