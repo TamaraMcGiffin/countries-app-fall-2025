@@ -10,6 +10,10 @@ Check out the app: https://your-project.netlify.app
 
 ## 🖼️ Screenshots
 
+
+<img width="1438" height="480" alt="image" src="https://github.com/user-attachments/assets/6cfd5a80-6a5a-49bb-adf1-2bd1a923f735" />
+
+
 Here is where you'll include a screenshot of your project to show it off!
 
 Your instructor will walk you through this process with the rest of the class. Please be patient until the time comes! In the meantime, you can fill out all other sections of this template.
