@@ -28,8 +28,8 @@ function CountryDetails({ countriesData }) {
 
   const getNewCountryCount = async (name) => {
     try {
-      //removed API prefix
-      const response = await fetch("/update-one-country-count", {
+      //Dec 12 - added back API prefix
+      const response = await fetch("/api/update-one-country-count", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ function CountryDetails({ countriesData }) {
   const storeSavedCountry = async (name) => {
     try {
       // Removed api prefix
-      const response = await fetch("/save-one-country", {
+      const response = await fetch("/api/save-one-country", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,19 +88,19 @@ function CountryDetails({ countriesData }) {
       });
 
       if (!response.ok) {
-        console.error("Error:", response.status);
+        console.error("Error", response.status);
         return false;
       }
       console.log(`${name} saved`);
       return true;
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error", error);
     }
   };
 
   const getStoredSavedCountry = async () => {
     //Removed API prefix
-    const response = await fetch("/get-all-saved-countries");
+    const response = await fetch("/api/get-all-saved-countries");
 
     const savedCountryData = await response.json();
 

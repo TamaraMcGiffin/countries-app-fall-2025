@@ -58,28 +58,6 @@ function SavedCountries({ countriesData }) {
     setFormData(emptyFormState);
   };
 
-  // Step 1: Make a function called getNewestUser() that will get the form data from the API by sending a GET request to the /get-newest-user-endpoint
-
-  // Step 2: Save the form data in a state variable using useState()
-  // ORIGINAL ATTEMPT - SAVING CODE
-  // const getNewestUser = async () => {
-  //   // Declare a variable that will hold the response from the GET request to /get-newest-user
-  //   const response = await fetch(
-  //     "/api/get-newest-user"
-  //   );
-  //   // Turn the response into json format
-  //   const data = await response.json();
-  //   console.log(data);
-  //   const newestUserFromAPI = data[0];
-  //   // Save the data in state
-  //   setUserInfo({
-  //     fullName: newestUserFromAPI.name,
-  //     email: newestUserFromAPI.email,
-  //     country: newestUserFromAPI.country,
-  //     bio: newestUserFromAPI.bio,
-  //   });
-  // };
-  // SECOND ATTEMPT
   const getNewestUser = async () => {
     try {
       const response = await fetch("/api/get-newest-user");
@@ -122,10 +100,6 @@ function SavedCountries({ countriesData }) {
 
       const savedCountryData = await response.json();
 
-      // const savedCountryList = savedCountryData.map(
-      //   (item) => item.country_name
-      // );
-//Revised
       const savedCountryList = savedCountryData;
       // Fixed misspelling names to name
       const allSavedCountries = countriesData.filter((country) =>
@@ -133,7 +107,7 @@ function SavedCountries({ countriesData }) {
       );
       setSavedCountries(allSavedCountries);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error", error);
     }
   };
 
