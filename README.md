@@ -2,7 +2,7 @@
 
 ## 📌 Project Description & Purpose
 
-This project is ****\_\_\_****
+This project is \***\*\_\_\_\*\***
 
 ## 🚀 Live Site
 
@@ -33,20 +33,20 @@ This is what you can do on the app:
 
 **Frontend**
 
-- **Languages:** ****\_\_\_****
-- **Framework:** ****\_\_\_****
-- **Deployment:** ****\_\_\_****
+- **Languages:** \***\*\_\_\_\*\***
+- **Framework:** \***\*\_\_\_\*\***
+- **Deployment:** \***\*\_\_\_\*\***
 
 **Server/API**
 
-- **Languages:** ****\_\_\_****
-- **Framework:** ****\_\_\_****
-- **Deployment:** ****\_\_\_****
+- **Languages:** \***\*\_\_\_\*\***
+- **Framework:** \***\*\_\_\_\*\***
+- **Deployment:** \***\*\_\_\_\*\***
 
 **Database**
 
-- **Languages:** ****\_\_\_****
-- **Deployment:** ****\_\_\_****
+- **Languages:** \***\*\_\_\_\*\***
+- **Deployment:** \***\*\_\_\_\*\***
 
 ## 🔹 API Documentation
 
@@ -69,11 +69,11 @@ If you have more than one table, include them all.
 
 ## 💭 Reflections
 
-**What I learned:** ****\_\_\_****
+**What I learned:** \***\*\_\_\_\*\***
 
-**What I'm proud of:** ****\_\_\_****
+**What I'm proud of:** \***\*\_\_\_\*\***
 
-**What challenged me:** ****\_\_\_****
+**What challenged me:** \***\*\_\_\_\*\***
 
 **Future ideas for how I'd continue building this project:**
 
@@ -83,7 +83,7 @@ If you have more than one table, include them all.
 
 ## 🙌 Credits & Shoutouts
 
-Thanks to **\_\_\_\_** for ****\_\_****!
-And thanks to **\_\_\_\_** for ****\_\_****!
+Thanks to **\_\_\_\_** for \***\*\_\_\*\***!
+And thanks to **\_\_\_\_** for \***\*\_\_\*\***!
 
 Message class-be-main-9-25
