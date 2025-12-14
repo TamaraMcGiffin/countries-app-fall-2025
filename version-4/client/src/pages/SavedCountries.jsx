@@ -99,8 +99,10 @@ function SavedCountries({ countriesData }) {
       }
 
       const savedCountryData = await response.json();
-
-      const savedCountryList = savedCountryData;
+// Fixed and debugged here
+      const savedCountryList = savedCountryData.map(
+        (savedCountryToList) => savedCountryToList.country_name
+      );
       // Fixed misspelling names to name
       const allSavedCountries = countriesData.filter((country) =>
         savedCountryList.includes(country.name.common)

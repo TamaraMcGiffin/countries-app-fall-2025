@@ -9,6 +9,8 @@ function CountryDetails({ countriesData }) {
   // Setter function/variables with useState at default value of zero for view counts
   const [viewCount, setViewCount] = useState(0);
   const [isSaved, setIsSaved] = useState();
+  // Added new useState for debugging - why saved countries are not rendering - note: need to tap into an ARRAY of objects
+  const [allSavedCountries, setAllSavedCountries] = useState([]);
 
   const countryName = useParams().countryName;
   console.log(countryName, "CountryDetails console check");
@@ -72,8 +74,6 @@ function CountryDetails({ countriesData }) {
     updateCountryCount();
   }, [countryName]);
 
-  // Moved storeSavedCountry OUT of handleClick function - biggest debug!!
-
   const storeSavedCountry = async (name) => {
     try {
       // Removed api prefix
@@ -103,6 +103,8 @@ function CountryDetails({ countriesData }) {
     const response = await fetch("/api/get-all-saved-countries");
 
     const savedCountryData = await response.json();
+    // Adding here with useState above
+    setAllSavedCountries(savedCountryData);
 
     const countryHasBeenSaved = savedCountryData.some(
       (savedCountry) => savedCountry.country_name === countryName
