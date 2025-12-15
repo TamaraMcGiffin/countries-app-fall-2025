@@ -9,6 +9,8 @@ function CountryDetails({ countriesData }) {
   // Setter function/variables with useState at default value of zero for view counts
   const [viewCount, setViewCount] = useState(0);
   const [isSaved, setIsSaved] = useState();
+  // Added new useState for debugging - why saved countries are not rendering - note: need to tap into an ARRAY of objects
+  const [allSavedCountries, setAllSavedCountries] = useState([]);
 
   const countryName = useParams().countryName;
   console.log(countryName, "CountryDetails console check");
@@ -28,8 +30,8 @@ function CountryDetails({ countriesData }) {
 
   const getNewCountryCount = async (name) => {
     try {
-      //removed API prefix
-      const response = await fetch("/update-one-country-count", {
+      //Dec 12 - added back API prefix
+      const response = await fetch("/api/update-one-country-count", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,12 +74,10 @@ function CountryDetails({ countriesData }) {
     updateCountryCount();
   }, [countryName]);
 
-  // Moved storeSavedCountry OUT of handleClick function - biggest debug!!
-
   const storeSavedCountry = async (name) => {
     try {
       // Removed api prefix
-      const response = await fetch("/save-one-country", {
+      const response = await fetch("/api/save-one-country", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,21 +88,23 @@ function CountryDetails({ countriesData }) {
       });
 
       if (!response.ok) {
-        console.error("Error:", response.status);
+        console.error("Error", response.status);
         return false;
       }
       console.log(`${name} saved`);
       return true;
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error", error);
     }
   };
 
   const getStoredSavedCountry = async () => {
     //Removed API prefix
-    const response = await fetch("/get-all-saved-countries");
+    const response = await fetch("/api/get-all-saved-countries");
 
     const savedCountryData = await response.json();
+    // Adding here with useState above
+    setAllSavedCountries(savedCountryData);
 
     const countryHasBeenSaved = savedCountryData.some(
       (savedCountry) => savedCountry.country_name === countryName
