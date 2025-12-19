@@ -1,4 +1,4 @@
-# 📝 Your Project's Title — Replace this with your app's name!
+# 📝 Your Project's Title — Countries App
 
 ## 📌 Project Description & Purpose
 
@@ -11,7 +11,8 @@ Check out the app: https://your-project.netlify.app
 ## 🖼️ Screenshots
 
 
-<img width="1438" height="480" alt="image" src="https://github.com/user-attachments/assets/6cfd5a80-6a5a-49bb-adf1-2bd1a923f735" />
+
+<img width="1465" height="901" alt="image" src="https://github.com/user-attachments/assets/79340eb7-ba65-457b-acbc-7a8d8ecd93b4" />
 
 
 Here is where you'll include a screenshot of your project to show it off!
