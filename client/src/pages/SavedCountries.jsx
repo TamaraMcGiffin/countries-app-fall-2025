@@ -74,8 +74,7 @@ function SavedCountries({ countriesData }) {
       setUserInfo({
         fullName: newestUserFromAPI.name,
         email: newestUserFromAPI.email,
-        // fixed dot notation from country to country_name
-        country: newestUserFromAPI.country_name,
+        country: newestUserFromAPI.country,
         bio: newestUserFromAPI.bio,
       });
     } catch (error) {
